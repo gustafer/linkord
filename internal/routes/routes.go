@@ -31,7 +31,7 @@ func SetupRoutes(r *chi.Mux) {
 		// httplog.RequestLogger(logger),
 		middleware.SetHeader("Access-Control-Allow-Credentials", "true"),
 		cors.Handler(cors.Options{
-			AllowedOrigins: []string{"http://*"},
+			AllowedOrigins: []string{"http://*", "https://*"},
 			AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 			AllowedHeaders: []string{
 				"Accept", "Authorization",

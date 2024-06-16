@@ -21,8 +21,8 @@ var UserIdCtx ContextKey = "userId"
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cookie, err := r.Cookie("Auth")
-		fmt.Println(cookie)
-		fmt.Println(err)
+		fmt.Println("req cookie:", cookie)
+		fmt.Println("is error in req cookie?", err)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("cookies not set or err reason: %v", err.Error()), http.StatusUnauthorized)
 			return
@@ -32,7 +32,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, errors.New("unexpected signing method")
 			}
-			return []byte(configs.LoadAuthKey()), nil
+			return []byte(configs.GetJWTSecret()), nil
 		})
 		if err != nil {
 			http.Error(w, "Could not authenticate user", http.StatusUnauthorized)

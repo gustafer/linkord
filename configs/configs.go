@@ -14,6 +14,12 @@ func init() {
 	}
 }
 
+func GetCookieDomain() string {
+	return os.Getenv("COOKIE_DOMAIN")
+}
+func GetProtocol() string {
+	return os.Getenv("PROTOCOL")
+}
 func LoadPort() string {
 	return os.Getenv("PORT")
 }
@@ -34,6 +40,6 @@ func GetRedirectUrl() string {
 	return os.Getenv("REDIRECT_URL")
 }
 
-func LoadAuthKey() string {
-	return os.Getenv("AUTH_KEY")
+func GetJWTSecret() string {
+	return os.Getenv("JWT_SECRET")
 }

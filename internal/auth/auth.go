@@ -20,7 +20,7 @@ func init() {
 }
 
 var (
-	key                 = os.Getenv("AUTH_KEY")
+	key                 = os.Getenv("JWT_SECRET")
 	discordClientId     = os.Getenv("DISCORD_CLIENT_ID")
 	discordClientSecret = os.Getenv("DISCORD_CLIENT_SECRET")
 	MaxAge              = 86400 * 30
@@ -38,9 +38,10 @@ func NewAuth() {
 	gothic.Store = store
 
 	port := configs.LoadPort()
+	protocol := configs.GetProtocol()
 
 	goth.UseProviders(
-		discord.New(discordClientId, discordClientSecret, fmt.Sprintf("http://%v/auth/discord/callback", port),
+		discord.New(discordClientId, discordClientSecret, fmt.Sprintf("%v%v/auth/discord/callback", protocol, port),
 			discord.ScopeIdentify, discord.ScopeEmail),
 	)
 }
